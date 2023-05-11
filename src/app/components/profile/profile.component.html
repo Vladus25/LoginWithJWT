@@ -1,0 +1,28 @@
+<div class="container" *ngIf="isLoggedIn">
+  <div>
+    <h3>
+      <strong>{{ currentUser.username.charAt(0).toUpperCase() + currentUser.username.slice(1) }}</strong> Profile
+    </h3>
+  </div>
+  <div>
+    <p>
+      <strong>Email:</strong>
+      {{ currentUser.email }}
+    </p>
+  </div>
+  <div>
+    <strong>Roles:</strong>
+    <ul>
+      <li *ngFor="let role of currentUser.roles">
+        {{ role }}
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="text-center" *ngIf="!isLoggedIn">
+  <h3>
+    Please Login or Register to access this page
+  </h3>
+</div>
+
+

@@ -1,0 +1,28 @@
+<div class="container-fluid" *ngIf="isLoggedIn">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Cognome</th>
+        <th scope="col">Genere</th>
+        <th scope="col">Data Di Nascita</th>
+        <th scope="col">Abbonamento</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of persone">
+        <td>{{p.nome}}</td>
+        <td>{{p.cognome}}</td>
+        <td>{{p.genere}}</td>
+        <td>{{p.data_nascita | date:'shortDate'}}</td>
+        <td>Abbonamento di persona ad click </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="text-center" *ngIf="!isLoggedIn">
+  <h3>
+    Please Login or Register to access this page
+  </h3>
+</div>

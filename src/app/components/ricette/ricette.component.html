@@ -1,0 +1,86 @@
+<div class="container-fluid" *ngIf="isLoggedIn">
+  <span> 1) Cerca per nome <input type="text" [(ngModel)]="nomeRicetta" placeholder="Nome"></span>
+  <span> 2) Cerca per ingrediente <input type="text" [(ngModel)]="nomeIngrediente" placeholder="Ingrediente"></span>
+  <span> 3) Cerca per ingrediente escluso <input type="text" [(ngModel)]="nomeIngredienteEscluso" placeholder="Ingrediente escluso"></span>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nome Ricetta</th>
+        <th scope="col">Categoria</th>
+        <th scope="col">Difficolta</th>
+        <th scope="col">Tempo</th>
+        <th scope="col">Calorie</th>
+        <th scope="col">Ingredienti</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of ricette | filtroRicette:nomeRicetta:nomeIngrediente:nomeIngredienteEscluso:'nome'">
+        <td>{{p.nome}}</td>
+        <td>{{p.categoria}}</td>
+        <td>{{p.difficolta}}</td>
+        <td>{{p.tempo}}</td>
+        <td>{{p.calorie}}</td>
+        <td><span *ngFor="let a of p.ingredienti">{{a.nome}}, </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="container-fluid" *ngIf="isLoggedIn">
+  <h2>Inserisci una nuova ricetta</h2>
+  <form (ngSubmit)="invia()" #form="ngForm">
+    <div class="form-group">
+      <label for="nome">Nome Ricetta:</label>
+      <input type="text" class="form-control" id="nome" [(ngModel)]="ricetta.nome" name="nome" required>
+    </div>
+    <div class="form-group">
+      <label for="tempo">Tempo:</label>
+      <input type="text" class="form-control" id="tempo" [(ngModel)]="ricetta.tempo" name="tempo" required>
+    </div>
+    <div class="form-group">
+      <label for="difficolta">Difficoltà:</label>
+      <select class="form-control" id="difficolta" [(ngModel)]="ricetta.difficolta" name="difficolta" required>
+        <option value="facile">Facile</option>
+        <option value="media">Media</option>
+        <option value="difficile">Difficile</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="calorie">Calorie:</label>
+      <input type="number" class="form-control" id="calorie" [(ngModel)]="ricetta.calorie" name="calorie" required>
+    </div>
+    <div class="form-group">
+      <label for="categoria">Categoria:</label>
+      <input type="text" class="form-control" id="categoria" [(ngModel)]="ricetta.categoria" name="categoria" required>
+    </div>
+    <div class="form-group">
+      <label for="ingredienti">Ingredienti:</label>
+      <ul>
+        <li *ngFor="let ingrediente of ingredientiSelezionati">{{ ingrediente.nome}}</li>
+      </ul>
+      <div class="input-group mb-3">
+        <select class="form-select" [(ngModel)]="ingredienteSelezionato" name="ingredienteSelezionato">
+          <option value="">Seleziona ingrediente</option>
+          <option *ngFor="let ingrediente of ingredientiDisponibili" [value]="ingrediente.nome">{{ ingrediente.nome }}
+          </option>
+        </select>
+        <button class="btn btn-outline-secondary" type="button" (click)="aggiungiIngrediente()">Aggiungi</button>
+      </div>
+      <div class="form-group">
+        <label for="nuovoIngrediente">Nuovo Ingrediente:</label>
+        <input type="text" class="form-control" [(ngModel)]="ingredienteSelezionatoNew.nome"
+          name="ingredienteSelezionatoNew">
+        <button class="btn btn-outline-secondary" type="button" (click)="aggiungiNuovoIngrediente()">Aggiungi</button>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Invia</button>
+  </form>
+</div>
+
+
+<div class="text-center" *ngIf="!isLoggedIn">
+  <h3>
+    Please Login or Register to access this page
+  </h3>
+</div>
