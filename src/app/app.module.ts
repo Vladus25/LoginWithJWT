@@ -1,3 +1,4 @@
+import { NgxCaptchaModule } from 'ngx-captcha';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -16,6 +17,7 @@ import { HomeComponent } from './components/home/home.component';
 import { RicetteComponent } from './components/ricette/ricette.component';
 import { FiltroRicettePipe } from './pipe/filtro-ricette.pipe';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +35,8 @@ import { FiltroRicettePipe } from './pipe/filtro-ricette.pipe';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    NgxCaptchaModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

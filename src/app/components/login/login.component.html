@@ -22,6 +22,14 @@
         </div>
       </div>
       <div class="form-group">
+        <ngx-recaptcha2
+          name="captchaResponse"
+          [(ngModel)]="captchaResponse"
+          [siteKey]="siteKey"
+          (resolved)="onCaptchaResolved()"
+        ></ngx-recaptcha2>
+      </div>
+      <div class="form-group">
         <button class="btn btn-primary btn-block">Login</button>
       </div>
       <div class="form-group">

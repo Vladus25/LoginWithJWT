@@ -17,7 +17,15 @@ export class LoginComponent {
   errorMessage = '';
   roles: string[] = [];
 
+  captchaResponse: string = '';
+  isCaptchaInvalid: boolean = false;
+  siteKey: string = '6LdDBxgmAAAAAH871Lq8CmwXa79b2_1YByKOqfkn';
+
   constructor(private authService: AuthService, private tokenStorage: TokenStorageService) { }
+
+  onCaptchaResolved(): void {
+    this.isCaptchaInvalid = false;
+  }
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
@@ -29,7 +37,12 @@ export class LoginComponent {
   onSubmit(): void {
     const { username, password } = this.form;
 
-    this.authService.login(username, password).subscribe({
+    if (!this.captchaResponse) {
+      this.isCaptchaInvalid = true;
+      return;
+    }
+
+    this.authService.login(username, password, this.captchaResponse).subscribe({
       next: data => {
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUser(data);

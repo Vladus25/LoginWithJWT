@@ -12,10 +12,11 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(username: string, password: string): Observable<any> {
+  login(username: string, password: string, captchaResponse: string): Observable<any> {
     return this.http.post(this.AUTH_API + 'signin', {
       username,
-      password
+      password,
+      captchaResponse
     }, this.httpOptions);
   }
 
